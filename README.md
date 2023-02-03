@@ -1,5 +1,5 @@
 # sashimystic
-A very sashi and mystic bot!
+A very sashimi and mystic bot!
 
 This is something under construction, since I am still learning how to do this shit.
 
