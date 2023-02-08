@@ -1,25 +1,30 @@
 const { SlashCommandBuilder } = require('discord.js');
-const luckList1 = require('./data/sortes.json');
+const luckList = require('./data/sortes.json');
 
 const getLuck = () => {
-	let rollDice = randNum();
-	let luckDay = luckList1[rollDice.toString()];
-	return {
-		'sorte': luckDay,
-		'numero': rollDice.toString()
-	};
+	let myLuck = '';
+	for (let i = 0; i < luckList.length; i++) {
+		let keys = Object.keys(luckList[i]);
+		let numItems = keys.length;
+
+		let numRand = randNum(numItems);
+		let numString = numRand.toString();
+
+		myLuck += luckList[i][numString];
+	}
+	return myLuck;
 };
 
-const randNum = () => {
-	return Math.floor(Math.random() * 20);
+const randNum = (x) => {
+	return Math.floor(Math.random() * x);
 };
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('sorte')
 		.setDescription('Veja sua sorte do dia, tipo tarô só que pior.'),
-	async execute(interaction) {
+	async execute(interaction, client) {
 		// interaction.guild is the object representing the Guild in which the command was run
-		await interaction.reply(`Sua sorte hoje: ${getLuck().numero} - Você vai ${getLuck().sorte}.`);
+		await interaction.reply(`${interaction.user.id} sua sorte hoje é: ${getLuck()}`);
 	},
 };

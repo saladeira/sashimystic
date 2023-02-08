@@ -1,22 +1,57 @@
+[{
+        "0" : "Provavelmente agora, ",
+        "1" : "Antes do final do dia, ",
+        "2" : "A qualquer momento, " ,
+        "3" : "Logo menos, ",
+        "4" : "Um dia, "
+    },
+ {
+        "0" : "sorrateiramente, ",
+        "1" : "de maneira brusca, ",
+        "2" : "repentinamente, ",
+        "3" : "sem aviso, ",
+        "4" : "com sinais claros, ",
+        "5" : "amigavelmente, ",
+        "6" : "suavemente, ",
+        "8" : "com muita alegria, "
+    },
 {
-    "1" : "acordar com uma dor de cabeça",
-    "2" : "perder a chave do carro",
-    "3" : "esquecer o laptop em casa",
-    "4" : "receber uma multa de trânsito",
-    "5" : "descobrir que o voo foi cancelado",
-    "6" : "ter uma reunião importante adiada",
-    "7" : "levar um susto com uma cobra no quintal",
-    "8" : "receber uma ligação de cobrança",
-    "9" : "ver a previsão do tempo apontando para chuva",
-    "10" : "receber uma notícia triste de alguém querido",
-    "11" : "descobrir que a comida está estragada",
-    "12" : "ter uma briga com um amigo",
-    "13" : "ser preso em um engarrafamento",
-    "14" : "ver o carro com uma avaria",
-    "15" : "receber uma oferta de emprego com salário abaixo do esperado",
-    "16" : "ver uma pessoa querida doente",
-    "17" : "ter uma prova difícil",
-    "18" : "descobrir que a conta bancária está negativa",
-    "19" : "receber uma chuva inesperada",
-    "20" : "encontrar um presente surpresa."
-}
+        "0" : "sua mente ",
+        "1" : "você ",
+        "2" : "alguém que você abomina ",
+        "3" : "uma multidão ",
+        "4" : "alguém desconhecido ",
+        "5" : "uma pessoa muito próxima "
+    },
+{
+        "0" : "se perderá em ",
+        "1" : "confrontará-se com ",
+        "2" : "irá se desesperar com ",
+        "3" : "vai ajudar em ",
+        "4" : "vai atrapalhar em ",
+        "5" : "opinará em ",
+        "6" : "se instruirá em ",
+        "7" : "ficará alegre com ",
+        "8" : "terá dúvidas sobre "
+    },
+{
+        "0" : "conflitos dolorosos ",
+        "1" : "situações diversas ",
+        "2" : "posicionamentos complexos ",
+        "3" : "pequenos problemas ",
+        "4" : "casos sem soluções ",
+        "5" : "rotinas cotidianas ",
+        "6" : "conhecimentos ocultos ",
+        "7" : "escolhas fáceis ",
+        "8" : "acertos fugazes ",
+        "9" : "alegrias passageiras ",
+        "10" : "breves momentos "
+    },
+{
+        "0" : "de relacionamento.",
+        "1" : "da vida.",
+        "2" : "de amigos.",
+        "3" : "pessoais.",
+        "4" : "de desconhecidos."
+    }
+]
