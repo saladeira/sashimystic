@@ -19,18 +19,19 @@
         "0" : "sua mente ",
         "1" : "você ",
         "2" : "alguém que você abomina ",
-        "3" : "uma multidão ",
+        "3" : "ninguém ",
         "4" : "alguém desconhecido ",
-        "5" : "uma pessoa muito próxima "
+        "5" : "uma pessoa muito próxima ",
+        "6" : "o universo "
     },
 {
-        "0" : "se perderá em ",
-        "1" : "confrontará-se com ",
+        "0" : "irá se perder em ",
+        "1" : "vai se confrontar com ",
         "2" : "irá se desesperar com ",
         "3" : "vai ajudar em ",
         "4" : "vai atrapalhar em ",
-        "5" : "opinará em ",
-        "6" : "se instruirá em ",
+        "5" : "tentará opinar em ",
+        "6" : "conseguirá se instruir em ",
         "7" : "ficará alegre com ",
         "8" : "terá dúvidas sobre "
     },

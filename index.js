@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, codeBlock, Collection, Events, GatewayIntentBits } = require('discord.js');
@@ -13,6 +14,22 @@ client.currency = new Collection();
 
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+
+setInterval(() => clearLuckCount(), 57600000);
+
+const clearLuckCount = async () => {
+	//const clearAll = Users.findAll({ where: { luckcount } });
+	const luckClear = await Users.findAll();
+	const listUsers = luckClear.map (i => i.user_id);
+	listUsers.forEach(async a => {
+		console.log(a);
+		if (a !== 0) {
+			const user = await Users.findOne({ where: { user_id: a}});
+			user.update({ luckcount: 0 });
+		}
+	});
+};
 
 addBalance = async (id, amount) => {
 	const user = client.currency.get(id);
@@ -38,27 +55,6 @@ for (const file of commandFiles) {
 	const command = require(filePath);
 	client.commands.set(command.data.name, command);
 }
-
-// client.once(Events.ClientReady, async () => {
-// 	const storedBalances = await Users.findAll();
-// 	storedBalances.forEach(b => client.currency.set(b.user_id, b));
-// 	console.log('Ready!');
-// });
-
-// client.on(Events.InteractionCreate, async interaction => {
-// 	if (!interaction.isChatInputCommand()) return;
-
-// 	const command = client.commands.get(interaction.commandName);
-
-// 	if (!command) return;
-
-// 	try {
-// 		await command.execute(interaction);
-// 	} catch (error) {
-// 		console.error(error);
-// 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-// 	}
-// });
 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));

@@ -1,32 +1,16 @@
+/* eslint-disable no-undef */
 const { SlashCommandBuilder } = require('discord.js');
 const luckList = require('./data/sortes.json');
-const { Sequelize } = require('sequelize');
-
-const sequelize = new Sequelize('database', 'user', 'password', {
-	host: 'localhost',
-	dialect: 'sqlite',
-	logging: false,
-	// SQLite only
-	storage: 'database.sqlite',
-});
-
-const SorteDBs = sequelize.define('sortedb', {
-	userid: {
-		type: Sequelize.STRING,
-		unique: true,
-	},
-	description: Sequelize.TEXT,
-	username: Sequelize.STRING,
-});
+const { Users, CurrencyShop } = require('../dbObjects.js');
 
 const getLuck = () => {
 	let myLuck = '';
 	for (let i = 0; i < luckList.length; i++) {
-		let keys = Object.keys(luckList[i]);
-		let numItems = keys.length;
+		const keys = Object.keys(luckList[i]);
+		const numItems = keys.length;
 
-		let numRand = randNum(numItems);
-		let numString = numRand.toString();
+		const numRand = randNum(numItems);
+		const numString = numRand.toString();
 
 		myLuck += luckList[i][numString];
 	}
@@ -42,28 +26,34 @@ module.exports = {
 		.setName('sorte')
 		.setDescription('Veja sua sorte do dia, tipo tarô só que pior.'),
 	async execute(interaction) {
-		//SorteDBs.sync();
+		Users.sync();
 		// interaction.guild is the object representing the Guild in which the command was run
-		let finalLuck = getLuck();
-		await interaction.reply(`${interaction.user.id} sua sorte hoje é: ${finalLuck}`);
+		const finalLuck = getLuck();
 
-		// try {
-		// 	// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
-		// 	const sortee = await SorteDBs.create({
-		// 		userid: interaction.user.id,
-		// 		description: finalLuck,
-		// 		username: interaction.user.username,
-		// 	});
+		const userId = interaction.user.id;
+		const userNow = interaction.client.currency.get(userId);
 
-		// 	return interaction.reply(`Tag ${sortee.userid} added. ${sortee.description}`);
-		// }
-		// catch (error) {
-		// 	if (error.name === 'SequelizeUniqueConstraintError') {
-		// 		const recuperaSorte = await SorteDBs.findOne({ where: { userid: interaction.user.id } });
-		// 		return interaction.reply(`${interaction.user.username}, você já tirou sua sorte hoje. Pense sobre qual pode ser o significado: "${recuperaSorte.get('description')}"`);
-		// 	}
+		// equivalent to: SELECT * FROM tags WHERE name = 'tagName' LIMIT 1;
+		const checkUser = await Users.findOne({ where: { user_id: userId } });
 
-		// 	return interaction.reply('Eu perdi a conexão com as forças misticas, algo deu muito errado...');
-		// }
+		if (!checkUser) {
+			const newUser = await Users.create({ user_id: userId, balance: 1, luckcount: 1, todayluck: finalLuck});
+			interaction.client.currency.set(userId, newUser);
+
+			await interaction.reply(`${interaction.user.id} sua sorte hoje é: ${finalLuck}`);
+		}
+		else if (checkUser.luckcount) {
+			const myLuck = checkUser.todayluck;
+			await interaction.reply(`${interaction.user} você já tirou sua sorte hoje. Pense sobre ela: ${myLuck}`);
+		}
+		else {
+			await interaction.reply(`${interaction.user.id} sua sorte hoje é: ${finalLuck}`);
+			Users.update({ luckcount: 1, todayluck: finalLuck }, { where: { user_id: userId } });
+		}
+
+		// const newUser = await Users.create({ user_id: id, balance: amount });
+		// client.currency.set(id, newUser);
+
+		// return newUser;
 	},
 };

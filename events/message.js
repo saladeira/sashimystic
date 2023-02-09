@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const { Events } = require('discord.js');
 
 module.exports = {
