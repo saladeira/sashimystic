@@ -51,7 +51,7 @@ module.exports = {
 		}
 		else {
 			const codeString = codeBlock(finalLuck);
-			await interaction.reply(`${interaction.user.id} sua sorte hoje é: ${codeString}`);
+			await interaction.reply(`${interaction.user} sua sorte hoje é: ${codeString}`);
 			Users.update({ luckcount: 1, todayluck: finalLuck }, { where: { user_id: userId } });
 		}
 	},
