@@ -1,7 +1,9 @@
 /* eslint-disable no-undef */
 const { SlashCommandBuilder } = require('discord.js');
 const luckList = require('./data/sortes.json');
-const { Users, CurrencyShop } = require('../dbObjects.js');
+const { Users } = require('../dbObjects.js');
+
+const { bold, italic, strikethrough, underscore, spoiler, quote, blockQuote, codeBlock } = require('discord.js');
 
 const getLuck = () => {
 	let myLuck = '';
@@ -31,29 +33,26 @@ module.exports = {
 		const finalLuck = getLuck();
 
 		const userId = interaction.user.id;
-		const userNow = interaction.client.currency.get(userId);
+		// const userNow = interaction.client.currency.get(userId);
 
 		// equivalent to: SELECT * FROM tags WHERE name = 'tagName' LIMIT 1;
 		const checkUser = await Users.findOne({ where: { user_id: userId } });
 
 		if (!checkUser) {
-			const newUser = await Users.create({ user_id: userId, balance: 1, luckcount: 1, todayluck: finalLuck});
+			const newUser = await Users.create({ user_id: userId, balance: 1, luckcount: 1, todayluck: finalLuck });
 			interaction.client.currency.set(userId, newUser);
-
-			await interaction.reply(`${interaction.user.id} sua sorte hoje é: ${finalLuck}`);
+			const codeString = codeBlock(finalLuck);
+			await interaction.reply(`${interaction.user.id} sua sorte hoje é: ${codeString}`);
 		}
 		else if (checkUser.luckcount) {
 			const myLuck = checkUser.todayluck;
-			await interaction.reply(`${interaction.user} você já tirou sua sorte hoje. Pense sobre ela: ${myLuck}`);
+			const codeString = codeBlock(myLuck);
+			await interaction.reply(`${interaction.user} você já tirou sua sorte hoje. Pense sobre ela. ${codeString}`);
 		}
 		else {
-			await interaction.reply(`${interaction.user.id} sua sorte hoje é: ${finalLuck}`);
+			const codeString = codeBlock(finalLuck);
+			await interaction.reply(`${interaction.user.id} sua sorte hoje é: ${codeString}`);
 			Users.update({ luckcount: 1, todayluck: finalLuck }, { where: { user_id: userId } });
 		}
-
-		// const newUser = await Users.create({ user_id: id, balance: amount });
-		// client.currency.set(id, newUser);
-
-		// return newUser;
 	},
 };

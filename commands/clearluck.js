@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const { Users, CurrencyShop } = require('../dbObjects.js');
+const { Users } = require('../dbObjects.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -11,10 +11,10 @@ module.exports = {
 		const listUsers = luckClear.map (i => i.user_id);
 		listUsers.forEach(async a => {
 			if (a !== 0) {
-				const user = await Users.findOne({ where: { user_id: a}});
+				const user = await Users.findOne({ where: { user_id: a } });
 				user.update({ luckcount: 0 });
 			}
 		});
-		await interaction.reply({content: 'Limpei as sortes.', ephemeral: true});
+		await interaction.reply({ content: 'Limpei as sortes.', ephemeral: true });
 	},
 };

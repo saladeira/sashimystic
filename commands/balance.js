@@ -9,6 +9,6 @@ module.exports = {
 		// interaction.guild is the object representing the Guild in which the command was run
 		const target = interaction.options.getUser('user') ?? interaction.user;
 
-		return interaction.reply(`${target.tag} has ${getBalance(target.id)}💰`);
+		return interaction.reply(`${interaction.user} tem ${getBalance(target.id)} 🪙`);
 	},
 };
