@@ -42,7 +42,7 @@ module.exports = {
 			const newUser = await Users.create({ user_id: userId, balance: 1, luckcount: 1, todayluck: finalLuck });
 			interaction.client.currency.set(userId, newUser);
 			const codeString = codeBlock(finalLuck);
-			await interaction.reply(`${interaction.user.id} sua sorte hoje é: ${codeString}`);
+			await interaction.reply(`${interaction.user} sua sorte hoje é: ${codeString}`);
 		}
 		else if (checkUser.luckcount) {
 			const myLuck = checkUser.todayluck;
